@@ -1,6 +1,6 @@
 * {
     box-sizing: border-box;
-  }
+}
 
 .background-color {
     background-color: rgb(127, 172, 113);
@@ -31,16 +31,48 @@
     padding-bottom:120px;
 }
 
-/* .card {
-    @include card;
-    border-radius: 25px;
-    border: 3px solid #000000;
-}
-.card {
-    background-color:green;
-    border-radius: 20px;
-} */
 
+.card {
+    border-radius: 20px;
+    font-family: 'Roboto Mono', monospace;
+    border: 2px solid rgb(177, 228, 117);
+} 
+
+.card-header {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 25px;
+}
+
+.search-header {
+    text-align: center;
+}  
+
+/* button */
+.searchBtn {
+    width: 100%;
+    text-align: center;
+	box-shadow:inset 0px 1px 0px 0px #bbdaf7;
+	background:linear-gradient(to bottom, #79bbff 5%, #378de5 100%);
+	background-color:#79bbff;
+	border-radius:6px;
+	border:1px solid #84bbf3;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-size:20px;
+	padding:8px 24px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #528ecc;
+}
+.searchBtn:hover {
+	background:linear-gradient(to bottom, #378de5 5%, #79bbff 100%);
+	background-color:#378de5;
+}
+.searchBtn:active {
+	position:relative;
+	top:1px;
+}
+/* button */
 
 .subtitle {
     background-color: white;
@@ -50,7 +82,3 @@
     font-family: 'Press Start 2P', cursive;
     font-size: 30px;
 }
-
-.search-header {
-    
-} 
