@@ -6,17 +6,60 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./assets/css/style.css">
-    <title>Document</title>
+    <title>PokéFinder</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.7.4/dist/css/foundation.min.css" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 </head>
-<body>
-    <header>
-      <div class="parent-img">
-        <img class="image1" src="../PokeFinder/assets/images/wallpaper.jpg" />
-        <img class="image2" src="../PokeFinder/assets/images/headerImage.png" />
-      </div>
-    </header>
+    
+<body class="grid-container background-color">
 
+  <header class="grid-y">
+      <div class="cell">
+          <div class="parent-img">
+              <img class="image1" src="../PokeFinder/assets/images/wallpaper.jpg" />
+              <img class="image2" src="../PokeFinder/assets/images/headerImage.png" />
+          </div>
+      </div>
+  </header>
+
+  <div class="cell medium-auto medium-cell-block-container">
+
+      <div class="grid-x grid-padding-x">
+
+          <div class="cell medium-4 medium-cell-block-y">
+
+              <section class="card" style="border-radius: 10px; text-align: center; border: 2px solid rgb(177, 228, 117); ;">
+                  <div class="card-divider" style="background-color: rgb(250, 250, 255);">
+                      <h3 class="card-header">Search for a Pokemon:</h3>
+                  </div>
+                  <div class="card-section">
+                      <form id="pokemon-form" class="card-body">
+                          <input type="text" placeholder="Pokémon Name" name="poke-name" id="poke-name" class="form-input"><span></span>
+                          <a class="button primary"  href="#">Search!</a>
+                          <h3 class="search-header">Search History:</h3>
+                      </form>
+                  </div>
+              </section>
+
+          </div>
+
+          <div class="cell medium-8 medium-cell-block-y">
+
+              <h2 class="subtitle">Showing Pokemon Card: <span id="pokemon-search-term"></span></h2>
+              <div id="poke-container"></div>
+
+          </div>
+
+      </div>
+
+  </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/foundation-sites@6.7.4/dist/js/foundation.min.js" crossorigin="anonymous"></script>
     <script src="./assets/js/script.js"></script>
+
+
+
 </body>
 
 </html>
