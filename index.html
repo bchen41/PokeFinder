@@ -18,61 +18,61 @@
 
 <body class="grid-container background-color">
 
-    <header class="grid-y">
-        <div class="cell">
-            <div class="parent-img">
-                <img class="image1" src="../PokeFinder/assets/images/wallpaper.jpg" />
-                <img class="image2" src="../PokeFinder/assets/images/headerImage.png" />
-            </div>
+    <header>
+
+        <div class="parent-img">
+            <img class="image1" src="../PokeFinder/assets/images/wallpaper.jpg" />
+            <img class="image2" src="../PokeFinder/assets/images/headerImage.png" />
         </div>
+
     </header>
 
-    <div class="cell medium-auto medium-cell-block-container">
+    <div class="grid-x grid-padding-x">
 
-        <div class="grid-x grid-padding-x">
+        <div class="cell medium-4">
 
-            <div class="cell medium-4 medium-cell-block-y">
-
-                <section class="card">
-                    <div class="card-divider">
-                        <h3 class="card-header">Search for a Pokemon:</h3>
-                    </div>
-                    <div class="card-section">
-                        <form id="pokemon-form" class="card-body">
-                            <input type="text" placeholder="Pokémon Name" name="poke-name" id="poke-name"
-                                class="form-input"><span></span>
-                            <a href="#" class="searchBtn">Search!</a>
-                            <p>Our database is huge! Please give time for it to load!</p>
-                        </form>
-                    </div>
-                </section>
-                <section class=“card”>
-                    <h3 class=“search-header”>Search History:</h3>
-                </section>
-            </div>
-
-            <div class="cell medium-8 medium-cell-block-y">
-
-                <h2 class="subtitle">Showing Pokemon Card: <span id="pokemon-search-term"></span></h2>
-                <div id="poke-container"></div>
-
-                <p><button class="button" data-open="exampleModal1">Click me for a modal</button></p>
-
-                <div class="reveal" id="exampleModal1" data-reveal>
-                    <h1>Awesome. I Have It.</h1>
-                    <p class="lead">Your couch. It is mine.</p>
-                    <p>I'm a cool paragraph that lives inside of an even cooler modal. Wins!</p>
-                    <button class="close-button" data-close aria-label="Close modal" type="button">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+            <section class="card">
+                <div class="card-divider">
+                    <h3 class="card-header">Search for a Pokemon:</h3>
                 </div>
+                <div class="card-section">
+                    <form id="pokemon-form" class="card-body">
+                        <input type="text" placeholder="Pokémon Name" name="poke-name" id="poke-name"
+                            class="form-input">
+                        <button class="searchBtn">Search!</button>
+                    </form>
+                </div>
+            </section>
+
+            <section class=“card”>
+                <div class="card-divider">
+                    <h3 class=“search-header”>Search History:</h3>
+                </div>
+                <div class="card-section">
+
+                </div>
+            </section>
+        </div>
+
+        <div class="cell medium-8">
+
+            <h2 class="subtitle">Showing Pokemon Card: <span id="pokemon-search-term"></span></h2>
+            <div id="poke-container"></div>
 
 
+            <p><button class="button" data-open="exampleModal1">Click to Enlarge</button></p>
 
-
+            <div class="reveal" id="exampleModal1" data-reveal>
+                <h1>Awesome. I Have It.</h1>
+                <p class="lead">Your couch. It is mine.</p>
+                <p>I'm a cool paragraph that lives inside of an even cooler modal. Wins!</p>
+                <button class="close-button" data-close aria-label="Close modal" type="button">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
         </div>
     </div>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/foundation-sites@6.7.4/dist/js/foundation.min.js"
