@@ -1,25 +1,39 @@
-fetch('GET https://api.pokemontcg.io/v2/cards/<id>', {
-    method: 'GET',
-    credentials: 'same-origin',
-    redirect: 'follow',
-  });
-    pokemon.card.find('')
-    .then(card => {
-        console.log(card.name)
+var pokeLocation = document.getElementById('location');
+var resultsEl = document.getElementById('cardname');
+var div1 = document.createElement('div'); 
 
-    })
-fetch('Get https://pokeapi.co/api/v2/pokemon/name/')
+fetch('https://api.pokemontcg.io/v2/cards/', {
+  method: 'GET',
+  credentials: 'same-origin', 
+  redirect: 'follow', })
 
-    .then(function (response) {
-      return response.json();
-    })
-    .then(function (data) {
-      console.log(data);
-      console.log(data.results[0].location);
-      console.log(data.results[0].location[0] + " " ,data.results[0].location[1] + ' ' + data.results[0].location[2]);
-    });
+  .then(function (response) {
+    return response.json();
+  })
+  .then(function (cards) {
+    console.log(cards);
+    console.log(cards.count);
+    console.log(cards.data[1]);
+    console.log(cards.data[1].id);
+    console.log(cards.data[1].images.small);
+
+    for (var i = 0; i < cards.data.length; i++) {
+      // creat image elements
+      //set attributes and assign the small image url from the Data array
+      // append to a DOM element to display on the web page 
+    }
+
   
-    
-    var pokeLocation = document.getElementById('location');
-    var resultsEl = document.getElementById('cardname');
-    var div1 = document.createElement('div'); 
+
+  });
+
+// // fetch('https://pokeapi.co/api/v2/pokemon/name/')
+
+// .then(function (response) {
+//   return response.json();
+// })
+// .then(function (cards) {
+//   console.log(cards);
+  
+
+// });
