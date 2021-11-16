@@ -14,6 +14,7 @@ var formSubmitHandler = function (event) {
 
   if (pokeName) {
     getPokeCard(pokeName);
+    getPokeLocation(pokeName);
 
     pokeNameContainer.textContent = "";
     pokeNameEl.value = "";
@@ -41,45 +42,33 @@ var getPokeCard = function (pokeName) {
       cardImgEl.setAttribute("src", pokeImgSrc);
 
       pokeNameContainer.append(cardImgEl);
-
-      // for (var i = 0; i < cards.data.length; i++) {
-      // creat image elements
-      //set attributes and assign the small image url from the Data array
-      // append to a DOM element to display on the web page
-      // }
     });
 };
 
-// fetch("https://api.pokemontcg.io/v2/cards?q=name:" + pokeNameEl, {
-//   method: "GET",
-//   credentials: "same-origin",
-//   redirect: "follow",
-// })
-//   .then(function (response) {
-//     return response.json();
-//   })
-//   .then(function (cards) {
-//     console.log(cards);
-//     console.log(cards.count);
-//     console.log(cards.data[1]);
-//     console.log(cards.data[1].id);
-//     console.log(cards.data[1].images.small);
+var getPokeLocation = function (pokeName) {
+    fetch("https://pokeapi.co/api/v2/pokemon/" + pokeName + "/encounters", {
+        method: "GET",
+        credentials: "same-origin",
+        redirect: "follow",
+    })
+    .then(function (response) {
+        return response.json();
+    })
 
-//     for (var i = 0; i < cards.data.length; i++) {
-//       // creat image elements
-//       //set attributes and assign the small image url from the Data array
-//       // append to a DOM element to display on the web page
-//     }
-//   });
+    .then(function (location) {
+        for (var i = 0; i < location.encounters.location_areas.length; i++)
+        console.log(location)
 
-// // fetch('https://pokeapi.co/api/v2/pokemon/name/')
 
-// .then(function (response) {
-//   return response.json();
-// })
-// .then(function (cards) {
-//   console.log(cards);
+        var pTagLocationEl = document.createElement("p")
+        var locationName = location[i]
 
-// });
+        pTagLocationEl.textContent = locationName
+
+        pokeNameContainer.append(pTagLocationEl)
+    
+    })
+    
+}
 
 pokeFormEl.addEventListener("submit", formSubmitHandler);
