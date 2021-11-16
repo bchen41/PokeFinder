@@ -11,11 +11,7 @@
     <link rel="stylesheet" href="./assets/css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@600&display=swap" rel="stylesheet">
-    <link
-      rel="shortcut icon"
-      type="image/x-icon"
-      href="../PokeFinder/assets/images/pokeball.png"
-    />
+    <link rel="shortcut icon" type="image/x-icon" href="../PokeFinder/assets/images/pokeball.png" />
     <title>PokeFinder</title>
 </head>
 
@@ -43,7 +39,8 @@
                     </div>
                     <div class="card-section">
                         <form id="pokemon-form" class="card-body">
-                            <input type="text" placeholder="Pokémon Name" name="poke-name" id="poke-name" class="form-input"><span></span>
+                            <input type="text" placeholder="Pokémon Name" name="poke-name" id="poke-name"
+                                class="form-input"><span></span>
                             <a href="#" class="searchBtn">Search!</a>
                         </form>
                     </div>
@@ -57,13 +54,33 @@
 
                 <h2 class="subtitle">Showing Pokemon Card: <span id="pokemon-search-term"></span></h2>
                 <div id="poke-container"></div>
+
+                <p><button class="button" data-open="exampleModal1">Click me for a modal</button></p>
+
+                <div class="reveal" id="exampleModal1" data-reveal>
+                    <h1>Awesome. I Have It.</h1>
+                    <p class="lead">Your couch. It is mine.</p>
+                    <p>I'm a cool paragraph that lives inside of an even cooler modal. Wins!</p>
+                    <button class="close-button" data-close aria-label="Close modal" type="button">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+
+
+
             </div>
         </div>
     </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/foundation-sites@6.7.4/dist/js/foundation.min.js"
         crossorigin="anonymous"></script>
+
     <script src="./assets/js/script.js"></script>
 
+
+
 </body>
+
 </html>
