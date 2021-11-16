@@ -37,7 +37,9 @@
                     <div class="card-section">
                         <form id="pokemon-form" class="card-body">
                             <input type="text" name="poke-name" id="poke-name" class="form-input"><span></span>
-                            <button type="submit" class="btn">Search</button>
+                            <button class="button">Search</button>
+
+
                         </form>
                     </div>
                 </section>
@@ -53,15 +55,33 @@
                 <h2 class="subtitle">Showing Pokemon Card: <span id="pokemon-search-term"></span></h2>
                 <div id="poke-container"></div>
 
+                <p><button class="button" data-open="exampleModal1">Click me for a modal</button></p>
+
+                <div class="reveal" id="exampleModal1" data-reveal>
+                    <h1>Awesome. I Have It.</h1>
+                    <p class="lead">Your couch. It is mine.</p>
+                    <p>I'm a cool paragraph that lives inside of an even cooler modal. Wins!</p>
+                    <button class="close-button" data-close aria-label="Close modal" type="button">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+
+
+
             </div>
 
         </div>
 
     </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/foundation-sites@6.7.4/dist/js/foundation.min.js"
         crossorigin="anonymous"></script>
+
     <script src="./assets/js/script.js"></script>
 </body>
+
+
 
 </html>
