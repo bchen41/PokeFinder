@@ -41,7 +41,7 @@ var getPokeCard = function (pokeName) {
       var cardImgEl = document.createElement("img");
       cardImgEl.setAttribute("src", pokeImgSrc);
 
-      pokeNameContainer.append(cardImgEl);
+      pokeNameContainer.prepend(cardImgEl);
     });
 };
 
@@ -56,16 +56,18 @@ var getPokeLocation = function (pokeName) {
     })
 
     .then(function (location) {
-        for (var i = 0; i < location.encounters.location_areas.length; i++)
-        console.log(location)
+      console.log(location)
+        for (var i = 0; i < location.length; i++) {
+
+          var pTagLocationEl = document.createElement("p")
+          var locationName = location[i].location_area.name
+  
+          pTagLocationEl.textContent = locationName
+  
+          pokeNameContainer.append(pTagLocationEl)
+        }
 
 
-        var pTagLocationEl = document.createElement("p")
-        var locationName = location[i]
-
-        pTagLocationEl.textContent = locationName
-
-        pokeNameContainer.append(pTagLocationEl)
     
     })
     
