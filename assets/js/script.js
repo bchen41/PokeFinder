@@ -12,6 +12,7 @@ var loadingSpinner = document.querySelector(".overlay");
 var locationAreaContainer = document.querySelector(".location-container");
 var displayInvalidText = document.querySelector("#display-invalid");
 
+
 var formSubmitHandler = function (event) {
   event.preventDefault();
   var pokeName = pokeNameEl.value.toLowerCase().trim();
@@ -24,6 +25,11 @@ var formSubmitHandler = function (event) {
     pokeNameEl.value = "";
     // turn display on for a loading spinner
     loadingSpinner.classList.remove("hide");
+
+    // Sets Local Storage to name typed in
+    localStorage.setItem("searched", pokeName);
+   // OLD SEARCH HISTORY CODE //
+    // renderLastSearched();
   } else {
     displayInvalid();
     return;
@@ -100,3 +106,75 @@ function removeAllChildNodes(parent) {
 }
 
 pokeFormEl.addEventListener("submit", formSubmitHandler);
+
+
+
+// NEW SEARCH HISTORY CODE //
+
+var searchInput = document.querySelector("#poke-name")
+var searchForm = document.querySelector("#pokemon-form")
+var searchList = document.querySelector("#search-history")
+
+var searchHistoryUl = document.querySelector("#last-searched");
+var searchHistory = [];
+
+function renderSearchHistory() {
+  searchList.innerHTML = "";
+  searchHistoryUl.textContent = searchHistory.length;
+
+  for (var i = 0; i < searchHistory.length; i++) {
+    var search = searchHistory
+
+    var li = document.createElement("li");
+    li.textContent = search;
+    li.setAttribute("data-index", i);
+
+    searchList.appendChild(li);
+  }
+}
+
+function init() {
+  var storedSearch = JSON.parse(localStorage.getItem("searched"));
+
+  if (storedSearch !== null) {
+    searchHistory = storedSearch;
+  }
+  renderSearchHistory();
+}
+
+function storeSearches() {
+  localStorage.setItem("searched", JSON.stringify(searchHistory))
+}
+
+searchForm.addEventListener("submit", function(event) {
+  event.preventDefault();
+
+  var searchText = searchInput.value.trim();
+
+  if (searchText === "") {
+    return;
+  }
+
+  searchHistory.push(searchText);
+  searchInput.value = "";
+
+  storeSearches();
+  renderSearchHistory();
+});
+
+init();
+
+// OLD SEARCH HISTORY CODE //
+
+// var lastSearchedUl = document.querySelector("#last-searched");
+
+// function renderLastSearched() {
+//   var lastSearched = localStorage.getItem("searched");
+
+//   if (!lastSearched) {
+//     return;
+//   }
+//   lastSearchedUl.textContent = lastSearched;
+// }
+
+
