@@ -10,6 +10,7 @@ var pokeSearchTerm = document.getElementById("pokemon-search-term");
 var modalButton = document.querySelector("#modalbutton");
 var loadingSpinner = document.querySelector(".overlay");
 var locationAreaContainer = document.querySelector(".location-container");
+var displayInvalidText = document.querySelector("#display-invalid");
 
 var formSubmitHandler = function (event) {
   event.preventDefault();
@@ -24,7 +25,8 @@ var formSubmitHandler = function (event) {
     // turn display on for a loading spinner
     loadingSpinner.classList.remove("hide");
   } else {
-    alert("Please enter a pokemon name");
+    displayInvalid();
+    return;
   }
 };
 
@@ -42,10 +44,7 @@ var getPokeCard = function (pokeName) {
       // added hide class back to hide loading spinner
       loadingSpinner.classList.add("hide");
       if (cards.count === 0) {
-        var showPokeSearch = pokeSearchTerm;
-        showPokeSearch.textContent = "";
-
-        alert("Enter valid Pokemon name");
+        displayInvalid();
         return;
       }
 
@@ -61,6 +60,13 @@ var getPokeCard = function (pokeName) {
       modalButton.classList.remove("hide");
     });
 };
+
+function displayInvalid() {
+  displayInvalidText.classList.remove("hide");
+  setTimeout(function () {
+    displayInvalidText.classList.add("hide");
+  }, 3000);
+}
 
 var getPokeLocation = function (pokeName) {
   fetch("https://pokeapi.co/api/v2/pokemon/" + pokeName + "/encounters", {
@@ -81,8 +87,6 @@ var getPokeLocation = function (pokeName) {
         h4TagLocationEl.textContent = locationName;
 
         locationAreaContainer.append(h4TagLocationEl);
-        var locationAreaFigureEl = document.querySelector("dialogBox");
-        // locationAreaFigureEl.classList.remove("hide");
       }
     });
 };
