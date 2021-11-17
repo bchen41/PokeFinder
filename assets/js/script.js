@@ -115,12 +115,12 @@ var searchInput = document.querySelector("#poke-name")
 var searchForm = document.querySelector("#pokemon-form")
 var searchList = document.querySelector("#search-history")
 
-var searchHistoryUl = document.querySelector("#last-searched");
+// var searchHistoryUl = document.querySelector("#last-searched");
 var searchHistory = [];
 
 function renderSearchHistory() {
   searchList.innerHTML = "";
-  searchHistoryUl.textContent = searchHistory.length;
+  // searchHistoryUl.textContent = searchHistory.length;
 
   for (var i = 0; i < searchHistory.length; i++) {
     var search = searchHistory
@@ -134,9 +134,10 @@ function renderSearchHistory() {
 }
 
 function init() {
-  var storedSearch = JSON.parse(localStorage.getItem("searched"));
-
+  var storedSearch = localStorage.getItem("searched");
+  console.log(storedSearch)
   if (storedSearch !== null) {
+    // storedSearch = JSON.parse(storedSearch);
     searchHistory = storedSearch;
   }
   renderSearchHistory();
