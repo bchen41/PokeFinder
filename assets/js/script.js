@@ -16,6 +16,7 @@ var formSubmitHandler = function (event) {
 
   if (pokeName) {
     getPokeCard(pokeName);
+    getPokeLocation(pokeName);
 
     pokeNameContainer.textContent = "";
     pokeNameEl.value = "";
@@ -60,6 +61,29 @@ var getPokeCard = function (pokeName) {
       modalImgEl.setAttribute("src", cards.data[0].images.large);
       modalImgEl.setAttribute("alt", "Enlarged card of " + pokeName);
       modalButton.classList.remove("hide");
+    });
+};
+
+var getPokeLocation = function (pokeName) {
+  fetch("https://pokeapi.co/api/v2/pokemon/" + pokeName + "/encounters", {
+    method: "GET",
+    credentials: "same-origin",
+    redirect: "follow",
+  })
+    .then(function (response) {
+      return response.json();
+    })
+
+    .then(function (location) {
+      for (var i = 0; i < location.encounters.location_areas.length; i++)
+        console.log(location);
+
+      var pTagLocationEl = document.createElement("p");
+      var locationName = location[i];
+
+      pTagLocationEl.textContent = locationName;
+
+      pokeNameContainer.append(pTagLocationEl);
     });
 };
 
