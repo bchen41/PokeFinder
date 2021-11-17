@@ -9,10 +9,11 @@ var pokeNameContainer = document.getElementById("poke-container");
 var pokeSearchTerm = document.getElementById("pokemon-search-term");
 var modalButton = document.querySelector("#modalbutton");
 var loadingSpinner = document.querySelector(".overlay");
+var locationAreaContainer = document.querySelector(".location-container");
 
 var formSubmitHandler = function (event) {
   event.preventDefault();
-  var pokeName = pokeNameEl.value.trim();
+  var pokeName = pokeNameEl.value.toLowerCase().trim();
 
   if (pokeName) {
     getPokeCard(pokeName);
@@ -43,13 +44,10 @@ var getPokeCard = function (pokeName) {
       if (cards.count === 0) {
         var showPokeSearch = pokeSearchTerm;
         showPokeSearch.textContent = "";
+
         alert("Enter valid Pokemon name");
         return;
       }
-
-      var showPokeSearch = pokeSearchTerm;
-      showPokeSearch.textContent =
-        pokeName.charAt(0).toUpperCase() + pokeName.slice(1);
 
       var pokeImgSrc = cards.data[0].images.small;
       var cardImgEl = document.createElement("img");
@@ -61,7 +59,6 @@ var getPokeCard = function (pokeName) {
       modalImgEl.setAttribute("src", cards.data[0].images.large);
       modalImgEl.setAttribute("alt", "Enlarged card of " + pokeName);
       modalButton.classList.remove("hide");
-      pokeNameContainer.prepend(cardImgEl);
     });
 };
 
@@ -83,7 +80,7 @@ var getPokeLocation = function (pokeName) {
 
         pTagLocationEl.textContent = locationName;
 
-        pokeNameContainer.append(pTagLocationEl);
+        locationAreaContainer.append(pTagLocationEl);
       }
     });
 };
