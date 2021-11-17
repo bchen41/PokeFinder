@@ -10,6 +10,7 @@ var pokeSearchTerm = document.getElementById("pokemon-search-term");
 var modalButton = document.querySelector("#modalbutton");
 var loadingSpinner = document.querySelector(".overlay");
 
+
 var formSubmitHandler = function (event) {
   event.preventDefault();
   var pokeName = pokeNameEl.value.trim();
@@ -22,6 +23,8 @@ var formSubmitHandler = function (event) {
     pokeNameEl.value = "";
     // turn display on for a loading spinner
     loadingSpinner.classList.remove("hide");
+
+    localStorage.setItem("searched", pokeName);
   } else {
     alert("Please enter a pokemon name");
   }
@@ -89,3 +92,16 @@ var getPokeLocation = function (pokeName) {
 };
 
 pokeFormEl.addEventListener("submit", formSubmitHandler);
+
+var lastSearchedSpan = document.querySelector("last-searched");
+
+function renderLastSearched() {
+  var lastSearched = localStorage.getItem("searched");
+
+  if (!lastSearched) {
+    return;
+  }
+  lastSearchedSpan.textContent = lastSearched;
+}
+
+
