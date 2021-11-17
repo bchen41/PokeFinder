@@ -7,6 +7,8 @@ var pokeFormEl = document.querySelector("#pokemon-form");
 var pokeNameEl = document.getElementById("poke-name");
 var pokeNameContainer = document.getElementById("poke-container");
 var pokeSearchTerm = document.getElementById("pokemon-search-term");
+var modalButton = document.querySelector("#modalbutton");
+var loadingSpinner = document.querySelector(".overlay");
 
 var formSubmitHandler = function (event) {
   event.preventDefault();
@@ -17,6 +19,8 @@ var formSubmitHandler = function (event) {
 
     pokeNameContainer.textContent = "";
     pokeNameEl.value = "";
+    // turn display on for a loading spinner
+    loadingSpinner.classList.remove("hide");
   } else {
     alert("Please enter a pokemon name");
   }
@@ -32,6 +36,16 @@ var getPokeCard = function (pokeName) {
       return response.json();
     })
     .then(function (cards) {
+      console.log(cards);
+      // added hide class back to hide loading spinner
+      loadingSpinner.classList.add("hide");
+      if (cards.count === 0) {
+        var showPokeSearch = pokeSearchTerm;
+        showPokeSearch.textContent = "";
+        alert("Enter valid Pokemon name");
+        return;
+      }
+
       var showPokeSearch = pokeSearchTerm;
       showPokeSearch.textContent =
         pokeName.charAt(0).toUpperCase() + pokeName.slice(1);
@@ -42,44 +56,11 @@ var getPokeCard = function (pokeName) {
 
       pokeNameContainer.append(cardImgEl);
 
-      // for (var i = 0; i < cards.data.length; i++) {
-      // creat image elements
-      //set attributes and assign the small image url from the Data array
-      // append to a DOM element to display on the web page
-      // }
+      var modalImgEl = document.querySelector(".reveal img");
+      modalImgEl.setAttribute("src", cards.data[0].images.large);
+      modalImgEl.setAttribute("alt", "Enlarged card of " + pokeName);
+      modalButton.classList.remove("hide");
     });
 };
-
-// fetch("https://api.pokemontcg.io/v2/cards?q=name:" + pokeNameEl, {
-//   method: "GET",
-//   credentials: "same-origin",
-//   redirect: "follow",
-// })
-//   .then(function (response) {
-//     return response.json();
-//   })
-//   .then(function (cards) {
-//     console.log(cards);
-//     console.log(cards.count);
-//     console.log(cards.data[1]);
-//     console.log(cards.data[1].id);
-//     console.log(cards.data[1].images.small);
-
-//     for (var i = 0; i < cards.data.length; i++) {
-//       // creat image elements
-//       //set attributes and assign the small image url from the Data array
-//       // append to a DOM element to display on the web page
-//     }
-//   });
-
-// // fetch('https://pokeapi.co/api/v2/pokemon/name/')
-
-// .then(function (response) {
-//   return response.json();
-// })
-// .then(function (cards) {
-//   console.log(cards);
-
-// });
 
 pokeFormEl.addEventListener("submit", formSubmitHandler);
