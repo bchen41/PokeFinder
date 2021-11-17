@@ -75,12 +75,14 @@ var getPokeLocation = function (pokeName) {
     .then(function (location) {
       console.log(location);
       for (var i = 0; i < location.length; i++) {
-        var pTagLocationEl = document.createElement("p");
+        var h4TagLocationEl = document.createElement("h4");
         var locationName = location[i].location_area.name;
 
-        pTagLocationEl.textContent = locationName;
+        h4TagLocationEl.textContent = locationName;
 
-        locationAreaContainer.append(pTagLocationEl);
+        locationAreaContainer.append(h4TagLocationEl);
+        var locationAreaFigureEl = document.querySelector("dialogBox");
+        // locationAreaFigureEl.classList.remove("hide");
       }
     });
 };
