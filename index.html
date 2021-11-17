@@ -6,6 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css" />
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css" />
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.7.4/dist/css/foundation.min.css"
         crossorigin="anonymous">
     <link rel="stylesheet" href="./assets/css/style.css">
@@ -40,7 +43,6 @@
                         <input type="text" placeholder="Pokémon Name" name="poke-name" id="poke-name"
                             class="form-input">
                         <button class="searchBtn">Search!</button>
-
                     </form>
                 </div>
             </section>
@@ -60,7 +62,12 @@
             </div>
         </div>
 
-        <div class="cell medium-8">
+
+
+
+
+        <div class="cell medium-4">
+
             <h2 class="subtitle">Showing Pokemon Card: <span id="pokemon-search-term"></span></h2>
             <div id="poke-container"></div>
             <p><button id="modalbutton" class="button hide" data-open="enlargeCardModal">Click Me to Enlarge!
@@ -73,7 +80,20 @@
                 </button>
             </div>
         </div>
+
+        <div class="cell medium-4">
+            <h2 class="subtitle">Showing Pokemon Location:</h2>
+            <section class="location-container">
+
+            </section>
+
+        </div>
+
     </div>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
