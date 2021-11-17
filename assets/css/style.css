@@ -41,13 +41,13 @@
   font-size: 25px;
 }
 
-#search-box {
-  text-align: center;
+/* . {
+  align-items: center;
   border-radius: 20px;
-  font-family: "Press Start 2P", cursive;
+  font-family: "Roboto Mono", monospace;
   border: 2px solid rgb(177, 228, 117);
 
-}
+} */
 
 
 /* button */
@@ -190,6 +190,5 @@ h4 {
 
 #display-invalid {
   text-align:center;
-  color: rgb(146, 146, 146);
-  font-size: 13px;
+  font-size:16px;
 }
