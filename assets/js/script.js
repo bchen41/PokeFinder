@@ -1,7 +1,4 @@
 $(document).foundation();
-var pokeLocation = document.getElementById("location");
-var resultsEl = document.getElementById("cardname");
-var div1 = document.createElement("div");
 var pokeFormEl = document.querySelector("#pokemon-form");
 
 var pokeNameEl = document.getElementById("poke-name");
@@ -114,12 +111,10 @@ var searchInput = document.querySelector("#poke-name");
 var searchForm = document.querySelector("#pokemon-form");
 var searchList = document.querySelector("#search-history");
 
-// var searchHistoryUl = document.querySelector("#last-searched");
 var searchHistory = [];
 
 function renderSearchHistory() {
   searchList.innerHTML = "";
-  // searchHistoryUl.textContent = searchHistory.length;
 
   for (var i = 0; i < searchHistory.length; i++) {
     var search = searchHistory;
@@ -136,7 +131,6 @@ function init() {
   var storedSearch = localStorage.getItem("searched");
   console.log(storedSearch);
   if (storedSearch !== null) {
-    // storedSearch = JSON.parse(storedSearch);
     searchHistory = storedSearch;
   }
   renderSearchHistory();
@@ -163,16 +157,3 @@ searchForm.addEventListener("submit", function (event) {
 });
 
 init();
-
-// OLD SEARCH HISTORY CODE //
-
-// var lastSearchedUl = document.querySelector("#last-searched");
-
-// function renderLastSearched() {
-//   var lastSearched = localStorage.getItem("searched");
-
-//   if (!lastSearched) {
-//     return;
-//   }
-//   lastSearchedUl.textContent = lastSearched;
-// }
