@@ -41,8 +41,12 @@
   font-size: 25px;
 }
 
-.search-header {
+#search-box {
   text-align: center;
+  border-radius: 20px;
+  font-family: "Press Start 2P", cursive;
+  border: 2px solid rgb(177, 228, 117);
+
 }
 
 
@@ -78,7 +82,7 @@
   background-color: white;
   text-align: center;
   border-radius: 25px;
-  border: 2px solid rgb(177, 228, 117);
+  border: 2px solid rgb(136, 255, 0);
   font-family: "Press Start 2P", cursive;
   font-size: 30px;
   margin-bottom: 20px;
@@ -173,12 +177,19 @@ img {
   margin-top:10px;
 }
 
-.location-container {
+h4 {
   align-items: center;
   text-align: center;
-  background-color: lightgrey;
-  width: 300px;
-  border: 3px solid green;
-  padding: 20px;
-  margin: 40px;
+  background-color: rgba(221, 237, 255, 0.842);
+  width: 100%;
+  border: 2px dashed rgb(136, 207, 249);
+  padding: 10px;
+  font-family: "Press Start 2P", cursive;
+  font-size: 14px;
+}
+
+#display-invalid {
+  text-align:center;
+  color: rgb(146, 146, 146);
+  font-size: 13px;
 }
