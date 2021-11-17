@@ -140,20 +140,4 @@ function storeSearches() {
   localStorage.setItem("searched", JSON.stringify(searchHistory));
 }
 
-searchForm.addEventListener("submit", function (event) {
-  event.preventDefault();
-
-  var searchText = searchInput.value.trim();
-
-  if (searchText === "") {
-    return;
-  }
-
-  searchHistory.push(searchText);
-  searchInput.value = "";
-
-  storeSearches();
-  renderSearchHistory();
-});
-
 init();
