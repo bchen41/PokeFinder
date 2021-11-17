@@ -25,7 +25,10 @@ var formSubmitHandler = function (event) {
     // turn display on for a loading spinner
     loadingSpinner.classList.remove("hide");
 
+    // Sets Local Storage to name typed in
     localStorage.setItem("searched", pokeName);
+    // Adds searched to HTML
+    renderLastSearched();
   } else {
     alert("Please enter a pokemon name");
   }
@@ -90,7 +93,15 @@ var getPokeLocation = function (pokeName) {
 
 pokeFormEl.addEventListener("submit", formSubmitHandler);
 
-var lastSearchedSpan = document.querySelector("last-searched");
+
+
+
+
+
+
+
+
+var lastSearchedUl = document.querySelector("#last-searched");
 
 function renderLastSearched() {
   var lastSearched = localStorage.getItem("searched");
@@ -98,7 +109,7 @@ function renderLastSearched() {
   if (!lastSearched) {
     return;
   }
-  lastSearchedSpan.textContent = lastSearched;
+  lastSearchedUl.textContent = lastSearched;
 }
 
 
