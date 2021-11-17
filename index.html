@@ -40,6 +40,7 @@
                         <input type="text" placeholder="Pokémon Name" name="poke-name" id="poke-name"
                             class="form-input">
                         <button class="searchBtn">Search!</button>
+
                     </form>
                 </div>
             </section>
@@ -51,18 +52,22 @@
                 <div class="card-section">
                 </div>
             </section>
+
+            <div class="overlay hide">
+                <div class="overlay__inner">
+                    <div class="overlay__content"><span class="spinner"></span></div>
+                </div>
+            </div>
         </div>
 
         <div class="cell medium-8">
             <h2 class="subtitle">Showing Pokemon Card: <span id="pokemon-search-term"></span></h2>
             <div id="poke-container"></div>
-        
-            <p><button class="button" data-open="exampleModal1">Click to Enlarge</button></p>
+            <p><button id="modalbutton" class="button hide" data-open="enlargeCardModal">Click Me to Enlarge!
+                </button></p>
 
-            <div class="reveal" id="exampleModal1" data-reveal>
-                <h1>Awesome. I Have It.</h1>
-                <p class="lead">Your couch. It is mine.</p>
-                <p>I'm a cool paragraph that lives inside of an even cooler modal. Wins!</p>
+            <div class="reveal" id="enlargeCardModal" data-reveal>
+                <img>
                 <button class="close-button" data-close aria-label="Close modal" type="button">
                     <span aria-hidden="true">&times;</span>
                 </button>
