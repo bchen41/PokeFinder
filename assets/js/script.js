@@ -80,6 +80,8 @@ var getPokeLocation = function (pokeName) {
 
     .then(function (location) {
       console.log(location);
+      var locationAreaContainer = document.querySelector(".location-container");
+      removeAllChildNodes(locationAreaContainer);
       for (var i = 0; i < location.length; i++) {
         var h4TagLocationEl = document.createElement("h4");
         var locationName = location[i].location_area.name;
@@ -90,5 +92,11 @@ var getPokeLocation = function (pokeName) {
       }
     });
 };
+
+function removeAllChildNodes(parent) {
+  while (parent.firstChild) {
+    parent.removeChild(parent.firstChild);
+  }
+}
 
 pokeFormEl.addEventListener("submit", formSubmitHandler);
