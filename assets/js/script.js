@@ -10,6 +10,7 @@ var pokeSearchTerm = document.getElementById("pokemon-search-term");
 var modalButton = document.querySelector("#modalbutton");
 var loadingSpinner = document.querySelector(".overlay");
 var locationAreaContainer = document.querySelector(".location-container");
+var displayInvalidText = document.querySelector("#display-invalid");
 
 
 var formSubmitHandler = function (event) {
@@ -30,7 +31,8 @@ var formSubmitHandler = function (event) {
    // OLD SEARCH HISTORY CODE //
     // renderLastSearched();
   } else {
-    alert("Please enter a pokemon name");
+    displayInvalid();
+    return;
   }
 };
 
@@ -48,10 +50,7 @@ var getPokeCard = function (pokeName) {
       // added hide class back to hide loading spinner
       loadingSpinner.classList.add("hide");
       if (cards.count === 0) {
-        var showPokeSearch = pokeSearchTerm;
-        showPokeSearch.textContent = "";
-
-        alert("Enter valid Pokemon name");
+        displayInvalid();
         return;
       }
 
@@ -68,6 +67,13 @@ var getPokeCard = function (pokeName) {
     });
 };
 
+function displayInvalid() {
+  displayInvalidText.classList.remove("hide");
+  setTimeout(function () {
+    displayInvalidText.classList.add("hide");
+  }, 3000);
+}
+
 var getPokeLocation = function (pokeName) {
   fetch("https://pokeapi.co/api/v2/pokemon/" + pokeName + "/encounters", {
     method: "GET",
@@ -80,16 +86,24 @@ var getPokeLocation = function (pokeName) {
 
     .then(function (location) {
       console.log(location);
+      var locationAreaContainer = document.querySelector(".location-container");
+      removeAllChildNodes(locationAreaContainer);
       for (var i = 0; i < location.length; i++) {
-        var pTagLocationEl = document.createElement("p");
+        var h4TagLocationEl = document.createElement("h4");
         var locationName = location[i].location_area.name;
 
-        pTagLocationEl.textContent = locationName;
+        h4TagLocationEl.textContent = locationName;
 
-        locationAreaContainer.append(pTagLocationEl);
+        locationAreaContainer.append(h4TagLocationEl);
       }
     });
 };
+
+function removeAllChildNodes(parent) {
+  while (parent.firstChild) {
+    parent.removeChild(parent.firstChild);
+  }
+}
 
 pokeFormEl.addEventListener("submit", formSubmitHandler);
 

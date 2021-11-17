@@ -41,9 +41,14 @@
   font-size: 25px;
 }
 
-.search-header {
+#search-box {
   text-align: center;
+  border-radius: 20px;
+  font-family: "Press Start 2P", cursive;
+  border: 2px solid rgb(177, 228, 117);
+
 }
+
 
 /* button */
 .searchBtn {
@@ -72,13 +77,15 @@
 }
 /* button */
 
+
 .subtitle {
   background-color: white;
   text-align: center;
   border-radius: 25px;
-  border: 2px solid rgb(177, 228, 117);
+  border: 2px solid rgb(136, 255, 0);
   font-family: "Press Start 2P", cursive;
   font-size: 30px;
+  margin-bottom: 20px;
 }
 
 #spinner:not([hidden]) {
@@ -96,7 +103,7 @@
   content: "";
   width: 80px;
   height: 80px;
-  border: 2px solid #f3f3f3;
+  border: 2px solid #ff0000;
   border-top: 3px solid #f25a41;
   border-radius: 100%;
   will-change: transform;
@@ -141,7 +148,7 @@
   display: inline-block;
   border-width: 2px;
   border-color: rgba(255, 255, 255, 0.05);
-  border-top-color: #fff;
+  border-top-color: rgb(255, 0, 0);
   animation: spin 1s infinite linear;
   border-radius: 100%;
   border-style: solid;
@@ -155,4 +162,34 @@
 
 .hide {
   visibility: hidden;
+}
+
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#modalbutton {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top:10px;
+}
+
+h4 {
+  align-items: center;
+  text-align: center;
+  background-color: rgba(221, 237, 255, 0.842);
+  width: 100%;
+  border: 2px dashed rgb(136, 207, 249);
+  padding: 10px;
+  font-family: "Press Start 2P", cursive;
+  font-size: 14px;
+}
+
+#display-invalid {
+  text-align:center;
+  color: rgb(146, 146, 146);
+  font-size: 13px;
 }
