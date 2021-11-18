@@ -190,3 +190,25 @@ h4 {
   color: rgb(146, 146, 146);
   font-size: 13px;
 }
+
+.search-history {
+  margin-right: 20px;
+}
+
+.search-history-btn {
+  align-items: center;
+  text-align: center;
+  background-color: rgba(221, 237, 255, 0.842);
+  width: 100%;
+  border: 2px dashed rgb(136, 207, 249);
+  padding: 10px;
+  font-family: "Press Start 2P", cursive;
+  font-size: 14px;
+  margin-top: 10px;
+  padding-right: 10px;
+  border-radius: 25px;
+}
+
+li {
+  list-style-type: none;
+}
