@@ -9,10 +9,10 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.7.4/dist/css/foundation.min.css"
         crossorigin="anonymous">
-    <link rel="stylesheet" href="./assets/css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@600&display=swap" rel="stylesheet">
     <link rel="shortcut icon" type="image/x-icon" href="../PokeFinder/assets/images/pokeBallWebIcon.png" />
+    <link rel="stylesheet" href="./assets/css/style.css">
     <title>PokeFinder</title>
 </head>
 
@@ -49,11 +49,12 @@
             </section>
 
             <section class=“card”>
-                <div class="card-divider">
-                    <h3 class=“search-header>Search History:</h3>
+                <div class="card-divider" id="search-box">
+                    <h3 class=“search-header”>Search History:</h3>
                 </div>
-                <ul id="search-history"></ul>
-                <div class="card-section">
+
+                <div class="card-section search-history">
+                    <ul id="search-history"></ul>
                 </div>
             </section>
 
