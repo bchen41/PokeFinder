@@ -32,7 +32,7 @@
 
 .card {
   border-radius: 20px;
-  font-family: "Roboto Mono", monospace;
+
   border: 2px solid rgb(177, 228, 117);
 }
 
@@ -44,8 +44,12 @@
 #search-box {
   text-align: center;
   border-radius: 20px;
-  font-family: "Press Start 2P", cursive;
+
   border: 2px solid rgb(177, 228, 117);
+}
+
+.search-header {
+  font-family: "Roboto Mono", monospace;
 }
 
 /* button */
@@ -206,6 +210,20 @@ h4 {
   font-size: 14px;
   margin-top: 10px;
   padding-right: 10px;
+  border-radius: 25px;
+}
+
+.search-history-btn:hover {
+  letter-spacing: 15px;
+  transition: all 0.5s ease;
+  background-color: rgba(221, 237, 255, 0.842);
+  border: 2px dashed rgb(136, 207, 249);
+  font-family: "Press Start 2P", cursive;
+  text-align: center;
+  line-height: 1;
+  font-size: 17px;
+  padding: 10px;
+  outline: none;
   border-radius: 25px;
 }
 
