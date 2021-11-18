@@ -1,7 +1,4 @@
 $(document).foundation();
-var pokeLocation = document.getElementById("location");
-var resultsEl = document.getElementById("cardname");
-var div1 = document.createElement("div");
 var pokeFormEl = document.querySelector("#pokemon-form");
 
 var pokeNameEl = document.getElementById("poke-name");
@@ -12,22 +9,19 @@ var loadingSpinner = document.querySelector(".overlay");
 var locationAreaContainer = document.querySelector(".location-container");
 var displayInvalidText = document.querySelector("#display-invalid");
 
-
 var formSubmitHandler = function (event) {
   event.preventDefault();
   var pokeName = pokeNameEl.value.toLowerCase().trim();
 
   if (pokeName) {
-    getPokeCard(pokeName);
-    getPokeLocation(pokeName);
-
-    pokeNameContainer.textContent = "";
-    pokeNameEl.value = "";
-    // turn display on for a loading spinner
     loadingSpinner.classList.remove("hide");
-
-    // Sets Local Storage to name typed in
-    localStorage.setItem("searched", pokeName);
+    Promise.all([getPokeCard(pokeName), getPokeLocation(pokeName)]).then(
+      function (fetchResults) {
+        const [imgSrcs, pokeLocations] = fetchResults;
+        storeSearches(pokeName, imgSrcs, pokeLocations);
+        pokeNameEl.value = "";
+      }
+    );
   } else {
     displayInvalid();
     return;
@@ -35,7 +29,7 @@ var formSubmitHandler = function (event) {
 };
 
 var getPokeCard = function (pokeName) {
-  fetch("https://api.pokemontcg.io/v2/cards?q=name:" + pokeName, {
+  return fetch("https://api.pokemontcg.io/v2/cards?q=name:" + pokeName, {
     method: "GET",
     credentials: "same-origin",
     redirect: "follow",
@@ -48,6 +42,8 @@ var getPokeCard = function (pokeName) {
       // added hide class back to hide loading spinner
       loadingSpinner.classList.add("hide");
       if (cards.count === 0) {
+        modalButton.classList.add("hide");
+        removeAllChildNodes(locationAreaContainer);
         displayInvalid();
         return;
       }
@@ -57,11 +53,12 @@ var getPokeCard = function (pokeName) {
       cardImgEl.setAttribute("src", pokeImgSrc);
 
       pokeNameContainer.append(cardImgEl);
-
+      var pokeImgSrcLg = cards.data[0].images.large;
       var modalImgEl = document.querySelector(".reveal img");
-      modalImgEl.setAttribute("src", cards.data[0].images.large);
+      modalImgEl.setAttribute("src", pokeImgSrcLg);
       modalImgEl.setAttribute("alt", "Enlarged card of " + pokeName);
       modalButton.classList.remove("hide");
+      return [pokeImgSrc, pokeImgSrcLg];
     });
 };
 
@@ -73,11 +70,14 @@ function displayInvalid() {
 }
 
 var getPokeLocation = function (pokeName) {
-  fetch("https://pokeapi.co/api/v2/pokemon/" + pokeName + "/encounters", {
-    method: "GET",
-    credentials: "same-origin",
-    redirect: "follow",
-  })
+  return fetch(
+    "https://pokeapi.co/api/v2/pokemon/" + pokeName + "/encounters",
+    {
+      method: "GET",
+      credentials: "same-origin",
+      redirect: "follow",
+    }
+  )
     .then(function (response) {
       return response.json();
     })
@@ -94,6 +94,10 @@ var getPokeLocation = function (pokeName) {
 
         locationAreaContainer.append(h4TagLocationEl);
       }
+
+      return location.map(function (loc) {
+        return loc.location_area.name;
+      });
     });
 };
 
@@ -105,57 +109,70 @@ function removeAllChildNodes(parent) {
 
 pokeFormEl.addEventListener("submit", formSubmitHandler);
 
-
-
 // NEW SEARCH HISTORY CODE //
 
-var searchInput = document.querySelector("#poke-name")
-var searchForm = document.querySelector("#pokemon-form")
-var searchList = document.querySelector("#search-history")
+var searchInput = document.querySelector("#poke-name");
+var searchForm = document.querySelector("#pokemon-form");
+var searchList = document.querySelector("#search-history");
 
 var searchHistory = [];
 
-function renderSearchHistory() {
-  searchList.innerHTML = "";
+function storeSearches(pokeName, imgSrcs, pokeLocations) {
+  const storedSearch = localStorage.getItem("searched");
+  if (storedSearch === null) {
+    const searchData = {
+      searchTerm: pokeName,
+      imgSrcs,
+      locations: pokeLocations,
+    };
+    localStorage.setItem("searched", JSON.stringify([searchData]));
+  } else {
+    const storedSearchArr = JSON.parse(storedSearch);
+    storedSearchArr.push({
+      searchTerm: pokeName,
+      imgSrcs,
+      locations: pokeLocations,
+    });
+    localStorage.setItem("searched", JSON.stringify(storedSearchArr));
+  }
+  renderSearchHistory(pokeName);
+}
 
-  for (var i = 0; i < searchHistory.length; i++) {
-    var search = searchHistory
-
+function renderSearchHistory(pokeName) {
+  var searchList = document.querySelector("#search-history");
+  if (pokeName) {
     var li = document.createElement("li");
-    li.textContent = search;
+    var searchBtnEl = document.createElement("button");
+    searchBtnEl.classList.add("search-history-btn");
 
+    searchBtnEl.textContent = pokeName;
+    li.appendChild(searchBtnEl);
     searchList.appendChild(li);
+    storeFetchedData();
   }
 }
 
 function init() {
-  var storedSearch = localStorage.getItem("searched");
-  console.log(storedSearch)
-  if (storedSearch !== null) {
-    searchHistory = storedSearch;
+  const storedSearch = localStorage.getItem("searched");
+  console.log(storedSearch);
+  const storedSearchArr = JSON.parse(storedSearch);
+
+  var searchList = document.querySelector("#search-history");
+
+  for (var i = 0; i < storedSearchArr.length; i++) {
+    if (storedSearchArr.length === null) {
+      return;
+    }
+    var li = document.createElement("li");
+    var searchBtnEl = document.createElement("button");
+    searchBtnEl.classList.add("search-history-btn");
+
+    searchBtnEl.textContent = storedSearchArr[i].searchTerm;
+    li.appendChild(searchBtnEl);
+    searchList.appendChild(li);
   }
-  renderSearchHistory();
 }
 
-function storeSearches() {
-  localStorage.setItem("searched", JSON.stringify(searchHistory))
-}
-
-searchForm.addEventListener("submit", function(event) {
-  event.preventDefault();
-
-  var searchText = searchInput.value.trim();
-
-  if (searchText === "") {
-    return;
-  }
-
-  searchHistory.push(searchText);
-  searchInput.value = "";
-
-  storeSearches();
-  renderSearchHistory();
-});
+function storeFetchedData() {}
 
 init();
-
