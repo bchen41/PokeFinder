@@ -9,3 +9,8 @@ Javascript was used to fetch two Pokémon APIs from [PokiAPI](https://pokeapi.co
 
 [PokéFinder](https://bchen41.github.io/PokeFinder/)
 
+↓Main Screen↓
+![](#)
+
+↓Results for searched Pokémon↓
+![](#)
