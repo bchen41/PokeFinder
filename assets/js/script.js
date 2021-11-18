@@ -3,7 +3,7 @@ var pokeFormEl = document.querySelector("#pokemon-form");
 
 var pokeNameEl = document.getElementById("poke-name");
 var pokeNameContainer = document.getElementById("poke-container");
-var pokeSearchTerm = document.getElementById("pokemon-search-term");
+
 var modalButton = document.querySelector("#modalbutton");
 var loadingSpinner = document.querySelector(".overlay");
 var locationAreaContainer = document.querySelector(".location-container");
@@ -18,6 +18,8 @@ var formSubmitHandler = function (event) {
     Promise.all([getPokeCard(pokeName), getPokeLocation(pokeName)]).then(
       function (fetchResults) {
         const [imgSrcs, pokeLocations] = fetchResults;
+        console.log(JSON.stringify(fetchResults, null, 4));
+        console.log(fetchResults["searchTerm"]);
         storeSearches(pokeName, imgSrcs, pokeLocations);
         pokeNameEl.value = "";
       }
@@ -39,10 +41,12 @@ var getPokeCard = function (pokeName) {
     })
     .then(function (cards) {
       console.log(cards);
+      removeAllChildNodes(pokeNameContainer);
       // added hide class back to hide loading spinner
       loadingSpinner.classList.add("hide");
       if (cards.count === 0) {
         modalButton.classList.add("hide");
+
         removeAllChildNodes(locationAreaContainer);
         displayInvalid();
         return;
@@ -53,6 +57,7 @@ var getPokeCard = function (pokeName) {
       cardImgEl.setAttribute("src", pokeImgSrc);
 
       pokeNameContainer.append(cardImgEl);
+
       var pokeImgSrcLg = cards.data[0].images.large;
       var modalImgEl = document.querySelector(".reveal img");
       modalImgEl.setAttribute("src", pokeImgSrcLg);
@@ -142,13 +147,16 @@ function renderSearchHistory(pokeName) {
   var searchList = document.querySelector("#search-history");
   if (pokeName) {
     var li = document.createElement("li");
+
     var searchBtnEl = document.createElement("button");
     searchBtnEl.classList.add("search-history-btn");
 
     searchBtnEl.textContent = pokeName;
+
+    searchBtnEl.addEventListener("click", displayFetchedData);
     li.appendChild(searchBtnEl);
     searchList.appendChild(li);
-    storeFetchedData();
+    // retrieveFetchedData();
   }
 }
 
@@ -164,15 +172,54 @@ function init() {
       return;
     }
     var li = document.createElement("li");
+
     var searchBtnEl = document.createElement("button");
     searchBtnEl.classList.add("search-history-btn");
 
     searchBtnEl.textContent = storedSearchArr[i].searchTerm;
+
+    searchBtnEl.addEventListener("click", displayFetchedData);
     li.appendChild(searchBtnEl);
     searchList.appendChild(li);
   }
 }
 
-function storeFetchedData() {}
+function displayFetchedData(event) {
+  var button = event.target;
+  var historicalSearch = button.textContent;
+  var cachedData = JSON.parse(localStorage.getItem("searched"));
+  var matches = cachedData.filter((cd) => cd.searchTerm === historicalSearch);
+  if (matches.length == 0) {
+    displayInvalid();
+  }
+
+  //console.log(JSON.stringify(matches, null, 4));
+  const { searchTerm, imgSrcs, locations } = matches[0];
+
+  var pokeImgSrc = matches[0].imgSrcs[0];
+  var cardImgEl = document.createElement("img");
+  cardImgEl.setAttribute("src", pokeImgSrc);
+  removeAllChildNodes(pokeNameContainer);
+  pokeNameContainer.append(cardImgEl);
+
+  var pokeImgSrcLg = matches[0].imgSrcs[1];
+  var modalImgEl = document.querySelector(".reveal img");
+  modalImgEl.setAttribute("src", pokeImgSrcLg);
+  modalImgEl.setAttribute("alt", "Enlarged card of " + searchTerm);
+  modalButton.classList.remove("hide");
+
+  var locationAreaContainer = document.querySelector(".location-container");
+  removeAllChildNodes(locationAreaContainer);
+  for (var i = 0; i < matches[0].locations.length; i++) {
+    var h4TagLocationEl = document.createElement("h4");
+    var locationName = matches[0].locations[i];
+
+    h4TagLocationEl.textContent = locationName;
+
+    locationAreaContainer.append(h4TagLocationEl);
+  }
+
+  console.log(searchTerm, imgSrcs, locations);
+}
 
 init();
