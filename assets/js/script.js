@@ -16,14 +16,14 @@ var formSubmitHandler = function (event) {
   if (pokeName) {
     getPokeCard(pokeName);
     getPokeLocation(pokeName);
-
+    storeSearches(pokeName);
     pokeNameContainer.textContent = "";
     pokeNameEl.value = "";
     // turn display on for a loading spinner
     loadingSpinner.classList.remove("hide");
 
     // Sets Local Storage to name typed in
-    localStorage.setItem("searched", pokeName);
+
     // OLD SEARCH HISTORY CODE //
     // renderLastSearched();
   } else {
@@ -113,31 +113,50 @@ var searchList = document.querySelector("#search-history");
 
 var searchHistory = [];
 
-function renderSearchHistory() {
-  searchList.innerHTML = "";
+function storeSearches(pokeName) {
+  const storedSearch = localStorage.getItem("searched");
+  if (storedSearch === null) {
+    localStorage.setItem("searched", JSON.stringify([pokeName]));
+  } else {
+    const storedSearchArr = JSON.parse(storedSearch);
+    storedSearchArr.push(pokeName);
+    localStorage.setItem("searched", JSON.stringify(storedSearchArr));
+  }
+  renderSearchHistory(pokeName);
+}
 
-  for (var i = 0; i < searchHistory.length; i++) {
-    var search = searchHistory;
-
+function renderSearchHistory(pokeName) {
+  var searchList = document.querySelector("#search-history");
+  if (pokeName) {
     var li = document.createElement("li");
-    li.textContent = search;
-    li.setAttribute("data-index", i);
+    var searchBtnEl = document.createElement("button");
+    searchBtnEl.classList.add("search-history-btn");
 
+    searchBtnEl.textContent = pokeName;
+    li.appendChild(searchBtnEl);
     searchList.appendChild(li);
+    storeFetchedData();
   }
 }
 
 function init() {
-  var storedSearch = localStorage.getItem("searched");
+  const storedSearch = localStorage.getItem("searched");
   console.log(storedSearch);
-  if (storedSearch !== null) {
-    searchHistory = storedSearch;
+  const storedNameArr = JSON.parse(storedSearch);
+
+  var searchList = document.querySelector("#search-history");
+
+  for (var i = 0; i < storedNameArr.length; i++) {
+    var li = document.createElement("li");
+    var searchBtnEl = document.createElement("button");
+    searchBtnEl.classList.add("search-history-btn");
+
+    searchBtnEl.textContent = storedNameArr[i];
+    li.appendChild(searchBtnEl);
+    searchList.appendChild(li);
   }
-  renderSearchHistory();
 }
 
-function storeSearches() {
-  localStorage.setItem("searched", JSON.stringify(searchHistory));
-}
+function storeFetchedData() {}
 
 init();
