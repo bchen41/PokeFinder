@@ -14,18 +14,14 @@ var formSubmitHandler = function (event) {
   var pokeName = pokeNameEl.value.toLowerCase().trim();
 
   if (pokeName) {
-    getPokeCard(pokeName);
-    getPokeLocation(pokeName);
-    storeSearches(pokeName);
-    pokeNameContainer.textContent = "";
-    pokeNameEl.value = "";
-    // turn display on for a loading spinner
     loadingSpinner.classList.remove("hide");
-
-    // Sets Local Storage to name typed in
-
-    // OLD SEARCH HISTORY CODE //
-    // renderLastSearched();
+    Promise.all([getPokeCard(pokeName), getPokeLocation(pokeName)]).then(
+      function (fetchResults) {
+        const [imgSrcs, pokeLocations] = fetchResults;
+        storeSearches(pokeName, imgSrcs, pokeLocations);
+        pokeNameEl.value = "";
+      }
+    );
   } else {
     displayInvalid();
     return;
@@ -33,7 +29,7 @@ var formSubmitHandler = function (event) {
 };
 
 var getPokeCard = function (pokeName) {
-  fetch("https://api.pokemontcg.io/v2/cards?q=name:" + pokeName, {
+  return fetch("https://api.pokemontcg.io/v2/cards?q=name:" + pokeName, {
     method: "GET",
     credentials: "same-origin",
     redirect: "follow",
@@ -57,11 +53,12 @@ var getPokeCard = function (pokeName) {
       cardImgEl.setAttribute("src", pokeImgSrc);
 
       pokeNameContainer.append(cardImgEl);
-
+      var pokeImgSrcLg = cards.data[0].images.large;
       var modalImgEl = document.querySelector(".reveal img");
-      modalImgEl.setAttribute("src", cards.data[0].images.large);
+      modalImgEl.setAttribute("src", pokeImgSrcLg);
       modalImgEl.setAttribute("alt", "Enlarged card of " + pokeName);
       modalButton.classList.remove("hide");
+      return [pokeImgSrc, pokeImgSrcLg];
     });
 };
 
@@ -73,11 +70,14 @@ function displayInvalid() {
 }
 
 var getPokeLocation = function (pokeName) {
-  fetch("https://pokeapi.co/api/v2/pokemon/" + pokeName + "/encounters", {
-    method: "GET",
-    credentials: "same-origin",
-    redirect: "follow",
-  })
+  return fetch(
+    "https://pokeapi.co/api/v2/pokemon/" + pokeName + "/encounters",
+    {
+      method: "GET",
+      credentials: "same-origin",
+      redirect: "follow",
+    }
+  )
     .then(function (response) {
       return response.json();
     })
@@ -94,6 +94,10 @@ var getPokeLocation = function (pokeName) {
 
         locationAreaContainer.append(h4TagLocationEl);
       }
+
+      return location.map(function (loc) {
+        return loc.location_area.name;
+      });
     });
 };
 
@@ -113,13 +117,22 @@ var searchList = document.querySelector("#search-history");
 
 var searchHistory = [];
 
-function storeSearches(pokeName) {
+function storeSearches(pokeName, imgSrcs, pokeLocations) {
   const storedSearch = localStorage.getItem("searched");
   if (storedSearch === null) {
-    localStorage.setItem("searched", JSON.stringify([pokeName]));
+    const searchData = {
+      searchTerm: pokeName,
+      imgSrcs,
+      locations: pokeLocations,
+    };
+    localStorage.setItem("searched", JSON.stringify([searchData]));
   } else {
     const storedSearchArr = JSON.parse(storedSearch);
-    storedSearchArr.push(pokeName);
+    storedSearchArr.push({
+      searchTerm: pokeName,
+      imgSrcs,
+      locations: pokeLocations,
+    });
     localStorage.setItem("searched", JSON.stringify(storedSearchArr));
   }
   renderSearchHistory(pokeName);
@@ -142,16 +155,19 @@ function renderSearchHistory(pokeName) {
 function init() {
   const storedSearch = localStorage.getItem("searched");
   console.log(storedSearch);
-  const storedNameArr = JSON.parse(storedSearch);
+  const storedSearchArr = JSON.parse(storedSearch);
 
   var searchList = document.querySelector("#search-history");
 
-  for (var i = 0; i < storedNameArr.length; i++) {
+  for (var i = 0; i < storedSearchArr.length; i++) {
+    if (storedSearchArr.length === null) {
+      return;
+    }
     var li = document.createElement("li");
     var searchBtnEl = document.createElement("button");
     searchBtnEl.classList.add("search-history-btn");
 
-    searchBtnEl.textContent = storedNameArr[i];
+    searchBtnEl.textContent = storedSearchArr[i].searchTerm;
     li.appendChild(searchBtnEl);
     searchList.appendChild(li);
   }
