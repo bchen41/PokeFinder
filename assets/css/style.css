@@ -48,10 +48,6 @@
   border: 2px solid rgb(177, 228, 117);
 }
 
-.search-header {
-  font-family: "Roboto Mono", monospace;
-}
-
 /* button */
 .searchBtn {
   width: 100%;
