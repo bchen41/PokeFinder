@@ -18,8 +18,7 @@ var formSubmitHandler = function (event) {
     Promise.all([getPokeCard(pokeName), getPokeLocation(pokeName)]).then(
       function (fetchResults) {
         const [imgSrcs, pokeLocations] = fetchResults;
-        console.log(JSON.stringify(fetchResults, null, 4));
-        console.log(fetchResults["searchTerm"]);
+
         storeSearches(pokeName, imgSrcs, pokeLocations);
         pokeNameEl.value = "";
       }
@@ -114,8 +113,6 @@ function removeAllChildNodes(parent) {
 
 pokeFormEl.addEventListener("submit", formSubmitHandler);
 
-// NEW SEARCH HISTORY CODE //
-
 var searchInput = document.querySelector("#poke-name");
 var searchForm = document.querySelector("#pokemon-form");
 var searchList = document.querySelector("#search-history");
@@ -146,6 +143,7 @@ function storeSearches(pokeName, imgSrcs, pokeLocations) {
 function renderSearchHistory(pokeName) {
   var searchList = document.querySelector("#search-history");
   if (pokeName) {
+    console.log(pokeName);
     var li = document.createElement("li");
 
     var searchBtnEl = document.createElement("button");
@@ -156,7 +154,6 @@ function renderSearchHistory(pokeName) {
     searchBtnEl.addEventListener("click", displayFetchedData);
     li.appendChild(searchBtnEl);
     searchList.appendChild(li);
-    // retrieveFetchedData();
   }
 }
 
@@ -193,7 +190,6 @@ function displayFetchedData(event) {
     displayInvalid();
   }
 
-  //console.log(JSON.stringify(matches, null, 4));
   const { searchTerm, imgSrcs, locations } = matches[0];
 
   var pokeImgSrc = matches[0].imgSrcs[0];

@@ -186,6 +186,8 @@ h4 {
 
 .search-history {
   margin-right: 20px;
+  overflow-y: scroll;
+  max-height: 350px;
 }
 
 .search-history-btn {
@@ -220,6 +222,10 @@ li {
   list-style-type: none;
 }
 
+.location-container {
+  overflow-y: scroll;
+  max-height: 525px;
+}
 h3 {
   font-family: "Roboto Mono", monospace;
   font-size: 25px;
