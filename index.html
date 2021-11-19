@@ -16,16 +16,15 @@
     <title>PokeFinder</title>
 </head>
 
-
 <body class="grid-container background-color">
 
     <header>
-
         <div class="parent-img">
-            <img class="image1" src="../PokeFinder/assets/images/wallpaper.jpg" />
-            <img class="image2" src="../PokeFinder/assets/images/headerImage.png" />
+            <img class="image1" src="../PokeFinder/assets/images/wallpaper.jpg"
+                alt="Wallpaper of sky, clouds, ocean, grass" />
+            <img class="image2" src="../PokeFinder/assets/images/headerImage.png"
+                alt="Image of PokeFinder in Pokemon font" />
         </div>
-
     </header>
 
     <div class="grid-x grid-padding-x">
@@ -34,10 +33,7 @@
 
             <section class="card">
                 <div class="card-divider">
-
                     <h3 class="card-header">Search for a Pokemon:</h3>
-
-
                 </div>
                 <div class="card-section">
                     <form id="pokemon-form" class="card-body">
@@ -59,6 +55,7 @@
                 </div>
             </section>
 
+            <!-- loading spinner -->
             <div class="overlay hide">
                 <div class="overlay__inner">
                     <div class="overlay__content"><span class="spinner"></span></div>
@@ -70,37 +67,30 @@
 
             <h2 class="subtitle">Pokemon Card:</h2>
             <div id="poke-container"></div>
+
+            <!-- foundation modal -->
             <p><button id="modalbutton" class="button hide" data-open="enlargeCardModal">Click Me to Enlarge!
                 </button></p>
-
             <div class="reveal" id="enlargeCardModal" data-reveal>
                 <img>
                 <button class="close-button" data-close aria-label="Close modal" type="button">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
+
         </div>
 
         <div class="cell medium-4">
             <h2 class="subtitle">Pokemon Location:</h2>
-            <section class="location-container">
-            </section>
-
+            <section class="location-container"></section>
         </div>
 
     </div>
 
-
-
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
     <script src="https://cdn.jsdelivr.net/npm/foundation-sites@6.7.4/dist/js/foundation.min.js"
         crossorigin="anonymous"></script>
-
     <script src="./assets/js/script.js"></script>
-
-
-
 </body>
 
 </html>
