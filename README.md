@@ -10,7 +10,7 @@ Javascript was used to fetch two Pokémon APIs from [PokiAPI](https://pokeapi.co
 [PokéFinder](https://bchen41.github.io/PokeFinder/)
 
 ↓Main Screen↓
-![]()
+![](https://github.com/bchen41/PokeFinder/blob/ff265f696624cbc764592ea909ee21386e38a7bf/assets/images/StartingScreen.png)
 
 ↓Results for searched Pokémon↓
-![](#)
+![](https://github.com/bchen41/PokeFinder/blob/ff265f696624cbc764592ea909ee21386e38a7bf/assets/images/ResultsSS.png)
