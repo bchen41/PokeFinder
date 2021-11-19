@@ -9,6 +9,8 @@ var loadingSpinner = document.querySelector(".overlay");
 var locationAreaContainer = document.querySelector(".location-container");
 var displayInvalidText = document.querySelector("#display-invalid");
 
+var storedSearchArr = JSON.parse(localStorage.getItem("searched")) || [];
+
 var formSubmitHandler = function (event) {
   event.preventDefault();
   var pokeName = pokeNameEl.value.toLowerCase().trim();
@@ -130,37 +132,40 @@ function storeSearches(pokeName, imgSrcs, pokeLocations) {
     localStorage.setItem("searched", JSON.stringify([searchData]));
   } else {
     const storedSearchArr = JSON.parse(storedSearch);
-    storedSearchArr.push({
-      searchTerm: pokeName,
-      imgSrcs,
-      locations: pokeLocations,
-    });
-    localStorage.setItem("searched", JSON.stringify(storedSearchArr));
+    if (storedSearchArr.indexOf(storedSearch) !== -1) {
+      storedSearchArr.push({
+        searchTerm: pokeName,
+        imgSrcs,
+        locations: pokeLocations,
+      });
+      localStorage.setItem("searched", JSON.stringify(storedSearchArr));
+    }
   }
   renderSearchHistory(pokeName);
 }
 
 function renderSearchHistory(pokeName) {
-  var searchList = document.querySelector("#search-history");
-  if (pokeName) {
-    console.log(pokeName);
-    var li = document.createElement("li");
+  if (storedSearchArr.indexOf(storedSearch) !== -1) {
+    var searchList = document.querySelector("#search-history");
+    if (pokeName) {
+      console.log(pokeName);
+      var li = document.createElement("li");
 
-    var searchBtnEl = document.createElement("button");
-    searchBtnEl.classList.add("search-history-btn");
+      var searchBtnEl = document.createElement("button");
+      searchBtnEl.classList.add("search-history-btn");
 
-    searchBtnEl.textContent = pokeName;
+      searchBtnEl.textContent = pokeName;
 
-    searchBtnEl.addEventListener("click", displayFetchedData);
-    li.appendChild(searchBtnEl);
-    searchList.appendChild(li);
+      searchBtnEl.addEventListener("click", displayFetchedData);
+      li.appendChild(searchBtnEl);
+      searchList.appendChild(li);
+    }
   }
 }
 
 function init() {
   const storedSearch = localStorage.getItem("searched");
-  console.log(storedSearch);
-  const storedSearchArr = JSON.parse(storedSearch);
+  storedSearchArr = JSON.parse(storedSearch);
 
   var searchList = document.querySelector("#search-history");
 
@@ -200,6 +205,7 @@ function displayFetchedData(event) {
 
   var pokeImgSrcLg = matches[0].imgSrcs[1];
   var modalImgEl = document.querySelector(".reveal img");
+
   modalImgEl.setAttribute("src", pokeImgSrcLg);
   modalImgEl.setAttribute("alt", "Enlarged card of " + searchTerm);
   modalButton.classList.remove("hide");
@@ -214,7 +220,6 @@ function displayFetchedData(event) {
 
     locationAreaContainer.append(h4TagLocationEl);
   }
-
   console.log(searchTerm, imgSrcs, locations);
 }
 
