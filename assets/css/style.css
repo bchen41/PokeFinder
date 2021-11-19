@@ -41,17 +41,6 @@
   font-size: 25px;
 }
 
-#search-box {
-  text-align: center;
-  border-radius: 20px;
-
-  border: 2px solid rgb(177, 228, 117);
-}
-
-.search-header {
-  font-family: "Roboto Mono", monospace;
-}
-
 /* button */
 .searchBtn {
   width: 100%;
@@ -192,7 +181,7 @@ h4 {
 #display-invalid {
   text-align: center;
   color: rgb(146, 146, 146);
-  font-size: 13px;
+  font-size: 16px;
 }
 
 .search-history {
@@ -229,4 +218,15 @@ h4 {
 
 li {
   list-style-type: none;
+}
+
+h3 {
+  font-family: "Roboto Mono", monospace;
+  font-size: 25px;
+}
+
+#search-box {
+  text-align: center;
+  border-radius: 20px;
+  border: 2px solid rgb(177, 228, 117);
 }
