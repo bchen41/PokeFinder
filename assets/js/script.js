@@ -1,6 +1,5 @@
 $(document).foundation();
 var pokeFormEl = document.querySelector("#pokemon-form");
-
 var pokeNameEl = document.getElementById("poke-name");
 var pokeNameContainer = document.getElementById("poke-container");
 
@@ -41,7 +40,7 @@ var getPokeCard = function (pokeName) {
       return response.json();
     })
     .then(function (cards) {
-      console.log(cards);
+      // console.log(cards);
       removeAllChildNodes(pokeNameContainer);
       // added hide class back to hide loading spinner
       loadingSpinner.classList.add("hide");
@@ -89,7 +88,7 @@ var getPokeLocation = function (pokeName) {
     })
 
     .then(function (location) {
-      console.log(location);
+      // console.log(location);
       var locationAreaContainer = document.querySelector(".location-container");
       removeAllChildNodes(locationAreaContainer);
       for (var i = 0; i < location.length; i++) {
@@ -132,7 +131,10 @@ function storeSearches(pokeName, imgSrcs, pokeLocations) {
     localStorage.setItem("searched", JSON.stringify([searchData]));
   } else {
     const storedSearchArr = JSON.parse(storedSearch);
-    if (storedSearchArr.indexOf(storedSearch) !== -1) {
+    const dupeSearches = storedSearchArr.filter(
+      (search) => search.searchTerm === pokeName
+    );
+    if (dupeSearches.length <= 0) {
       storedSearchArr.push({
         searchTerm: pokeName,
         imgSrcs,
@@ -145,10 +147,14 @@ function storeSearches(pokeName, imgSrcs, pokeLocations) {
 }
 
 function renderSearchHistory(pokeName) {
-  if (storedSearchArr.indexOf(storedSearch) !== -1) {
+  const searchButtons = Array.from(
+    document.querySelectorAll(".search-history-btn")
+  );
+  const dupeBtns = searchButtons.filter((btn) => btn.textContent === pokeName);
+  if (dupeBtns.length <= 0) {
     var searchList = document.querySelector("#search-history");
     if (pokeName) {
-      console.log(pokeName);
+      // console.log(pokeName);
       var li = document.createElement("li");
 
       var searchBtnEl = document.createElement("button");
@@ -165,10 +171,13 @@ function renderSearchHistory(pokeName) {
 
 function init() {
   const storedSearch = localStorage.getItem("searched");
-  storedSearchArr = JSON.parse(storedSearch);
+  var storedSearchArr = JSON.parse(storedSearch);
 
   var searchList = document.querySelector("#search-history");
 
+  if (!storedSearchArr) {
+    return;
+  }
   for (var i = 0; i < storedSearchArr.length; i++) {
     if (storedSearchArr.length === null) {
       return;
@@ -220,7 +229,7 @@ function displayFetchedData(event) {
 
     locationAreaContainer.append(h4TagLocationEl);
   }
-  console.log(searchTerm, imgSrcs, locations);
+  //console.log(searchTerm, imgSrcs, locations);
 }
 
 init();
