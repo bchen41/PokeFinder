@@ -1,8 +1,10 @@
 # PokéFinder
 
+![badge](https://img.shields.io/badge/license-MIT-blue)
+
 ## Description
 
-This website lets a user search for any Pokémon they are interested in. After clicking search, a card of the Pokémon and a list of locations the user can encounter the Pokémon will be displayed. The Pokémon will automatically be saved on the website in case the user wants to go back and look at the information again.
+For users that want to catch all their favorite Pokémons, this website lets them search for any Pokémon they desire. After clicking search, a card of the Pokémon and a list of locations the user can encounter the Pokémon will be displayed. The Pokémon will automatically be saved on the website in case the user wants to go back and look at the information again.
 
 ## Technologies and APIs Used
 
@@ -19,6 +21,10 @@ Javascript was used to fetch two Pokémon APIs from [PokeAPI](https://pokeapi.co
 
 ↓Results for searched Pokémon↓
 ![](https://github.com/bchen41/PokeFinder/blob/ff265f696624cbc764592ea909ee21386e38a7bf/assets/images/ResultsSS.png)
+
+## License
+
+Click [here](https://github.com/bchen41/PokeFinder/blob/main/LICENSE) for MIT license.
 
 ## Contributing
 
