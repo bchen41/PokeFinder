@@ -6,6 +6,10 @@
 
 For users that want to catch all their favorite Pokémons, this website lets them search for any Pokémon they desire. After clicking search, a card of the Pokémon and a list of locations the user can encounter the Pokémon will be displayed. The Pokémon will automatically be saved on the website in case the user wants to go back and look at the information again.
 
+## Usage
+
+After cloning the repository, if you would like to open the application locally, you need to either open the index.html file and press the short cut "Alt+B" or left click over the file and click "Open in Default Browser" to view this application.
+
 ## Technologies and APIs Used
 
 The design and styling of the website was created with HTML, CSS, and [Foundation Framework](https://get.foundation/sites/docs/) to create grids, cells and cards throughout the site.
